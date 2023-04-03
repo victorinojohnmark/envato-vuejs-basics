@@ -28,9 +28,26 @@
                 theme: 'light',
             }
         },
+        created() {
+            this.getThemeSetting();
+        },
         methods: {
             changeTheme() {
-                this.theme = this.theme == 'light' ? 'dark' : 'light'  
+                // let theme = 'light';
+                this.theme = this.theme == 'light' ? 'dark' : 'light';
+                
+                // this.theme = theme;
+                this.storeThemeSetting();
+            },
+            storeThemeSetting() {
+                localStorage.setItem('theme', this.theme);
+            },
+            getThemeSetting() {
+                let theme = localStorage.getItem('theme')
+
+                if(theme) {
+                    this.theme = theme;
+                }
             }
         }
     }
