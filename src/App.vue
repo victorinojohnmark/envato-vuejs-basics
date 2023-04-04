@@ -1,8 +1,8 @@
 <template>
-    <navbar :pages="pages" :active-page="activePage" :nav-link-click="(index) => activePage = index"></navbar>
+    <navbar :pages="pages" :active-page="activePage"></navbar>
     <page-viewer v-if="pages.length > 0" :page="pages[activePage]"></page-viewer>
 
-    <create-page :page-created="pageCreated"></create-page>
+    <create-page @page-created="pageCreated"></create-page>
 </template>
 
 <script>
@@ -22,6 +22,9 @@ import CreatePage from './components/CreatePage.vue';
             },
             created() {
                 this.getPages();
+                this.$bus.$on('navbarLinkActivated', (index) => {
+                    this.activePage = index;
+                });
             },
             methods: {
                 async getPages() {

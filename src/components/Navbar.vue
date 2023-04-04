@@ -3,9 +3,15 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#">My Vue</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li v-for="(page, index) in publishedPages" class="nav-item">
-                    <navbar-link :page="page" :isActive="activePage == index" @click.prevent="navLinkClick(index)"></navbar-link>
+                <li >
+                    
                 </li>
+                <navbar-link v-for="(page, index) in publishedPages" class="nav-item" 
+                :page="page" 
+                :index="index"
+                :isActive="activePage == index" 
+                @activated="$emit('activated')">
+                </navbar-link>
             </ul>
 
             <div class="d-flex">
@@ -27,7 +33,7 @@
                 return this.pages.filter(p => p.published);
             }
         },
-        props: ['pages', 'activePage', 'navLinkClick'],
+        props: ['pages', 'activePage'],
         data() {
             return {
                 theme: 'light',
@@ -35,9 +41,6 @@
         },
         created() {
             this.getThemeSetting();
-        },
-        mounted() {
-            console.log(this,this.publishedPages);
         },
         methods: {
             changeTheme() {
